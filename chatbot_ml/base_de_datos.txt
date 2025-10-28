@@ -1,0 +1,14 @@
+CREATE DATABASE chatbot_db;
+USE chatbot_db;
+
+CREATE TABLE knowledge (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL
+);
+
+-- Datos iniciales de ejemplo
+INSERT INTO knowledge (question, answer) VALUES
+('hola', '¡Hola! ¿Cómo estás?'),
+('quién eres', 'Soy un chatbot con inteligencia artificial básica.'),
+('qué puedes hacer', 'Puedo responder preguntas y aprender de nuevas conversaciones.');
