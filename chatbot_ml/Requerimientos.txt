@@ -1,0 +1,134 @@
+# CHATBOT ML - GUÍA COMPLETA DE INSTALACIÓN WINDOWS
+# ==================================================
+
+## 1. INSTALAR PYTHON 3.11 O 3.12
+# --------------------------------
+# Descargar desde: https://www.python.org/downloads/
+# ✅ IMPORTANTE: Marcar "Add Python to PATH" durante la instalación
+
+## 2. INSTALAR OLLAMA
+# -------------------
+# Descargar desde: https://ollama.com/
+# Ejecutar el instalador de Windows
+# Abrir CMD o PowerShell como Administrador y ejecutar:
+
+ollama pull llama3.2:1b
+
+## 3. CREAR Y ACTIVAR ENTORNO VIRTUAL (Recomendado)
+# -------------------------------------------------
+# Abrir CMD o PowerShell en la carpeta de tu proyecto:
+
+python -m venv chatbot_env
+chatbot_env\Scripts\activate
+
+## 4. INSTALAR PAQUETES PYTHON NECESARIOS
+# ---------------------------------------
+# Con el entorno virtual activado, ejecutar:
+
+pip install mysql-connector-python scikit-learn ollama requests
+
+# O si tienes problemas, instalar uno por uno:
+
+pip install mysql-connector-python==8.1.0
+pip install scikit-learn==1.3.2
+pip install ollama==0.1.7
+pip install requests==2.31.0
+
+## 5. CONFIGURAR BASE DE DATOS MYSQL
+# ----------------------------------
+# Opción A: Si tienes XAMPP/WAMP:
+# 1. Iniciar Apache y MySQL en el panel de control
+# 2. Abrir http://localhost/phpmyadmin
+# 3. Crear base de datos llamada: chatbot_db
+
+# Opción B: Si no tienes MySQL, el programa usará almacenamiento JSON automáticamente
+
+## 6. ESTRUCTURA DE LA BASE DE DATOS (Si usas MySQL)
+# --------------------------------------------------
+# Ejecutar este SQL en phpMyAdmin:
+
+CREATE DATABASE IF NOT EXISTS chatbot_db;
+USE chatbot_db;
+
+CREATE TABLE IF NOT EXISTS knowledge (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+## 7. CONFIGURACIÓN DEL ARCHIVO PYTHON
+# ------------------------------------
+# Guardar el código del chatbot como: chatbot_app.py
+# Asegurarse de que esté en la misma carpeta donde ejecutas los comandos
+
+## 8. EJECUTAR EL CHATBOT
+# -----------------------
+# Con el entorno virtual activado y en la carpeta correcta:
+
+python chatbot_app.py
+
+## 9. VERIFICACIÓN DE INSTALACIÓN
+# -------------------------------
+# Si hay errores, verificar:
+
+# ✅ Ollama está corriendo: ollama list
+# ✅ Python está en PATH: python --version
+# ✅ Paquetes instalados: pip list
+# ✅ MySQL corriendo (si lo usas)
+
+## 10. SOLUCIÓN DE PROBLEMAS COMUNES
+# -----------------------------------
+
+# Error: "ollama no se reconoce como comando"
+# Solución: Reiniciar Windows después de instalar Ollama
+
+# Error: módulos Python no encontrados
+# Solución: Asegurarse que el entorno virtual está activado
+
+# Error: MySQL connection failed
+# Solución: El programa usará JSON automáticamente, sigue funcionando
+
+# Error: Puerto 11434 en uso (Ollama)
+# Solución: Ejecutar en CMD: taskkill /f /im ollama.exe && ollama serve
+
+## 11. ESTRUCTURA FINAL DE CARPETA
+# --------------------------------
+# chatbot_ml/
+# ├── chatbot_app.py          (tu código principal)
+# ├── chatbot_env/            (entorno virtual)
+# ├── chatbot_knowledge.json  (se crea automáticamente)
+# └── requirements.txt        (opcional)
+
+## 12. COMANDOS RÁPIDOS PARA COPIAR Y PEGAR
+# ------------------------------------------
+
+# Crear entorno virtual:
+python -m venv chatbot_env
+
+# Activar entorno:
+chatbot_env\Scripts\activate
+
+# Instalar todo:
+pip install mysql-connector-python scikit-learn ollama requests
+
+# Ejecutar chatbot:
+python chatbot_app.py
+
+## 13. MODELOS OLLAMA ALTERNATIVOS (si llama3.2:1b no funciona)
+# -------------------------------------------------------------
+# ollama pull llama3.2:3b
+# ollama pull mistral:7b
+# ollama pull gemma:2b
+
+## 14. CONFIGURACIÓN MYSQL (OPCIONAL)
+# -----------------------------------
+# En el código, modificar si es necesario:
+# host="localhost"
+# user="root" 
+# password=""  # (vacío si usas XAMPP)
+
+## ¡LISTO! EL CHATBOT DEBERÍA FUNCIONAR
+# --------------------------------------
+# Si sigue sin funcionar, el programa creará automáticamente
+# un archivo JSON para almacenar el conocimiento sin necesidad de MySQL
